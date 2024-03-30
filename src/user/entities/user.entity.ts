@@ -17,7 +17,6 @@ export class User {
         this.created_at = new Date();
         this.updated_at = new Date();
     }
-
   }
   
 
