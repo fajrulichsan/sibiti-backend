@@ -1,6 +1,7 @@
 // user/user.controller.ts
 
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, ValidationPipe, UsePipes, HttpException, HttpStatus } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
@@ -14,19 +15,21 @@ export class UserController {
   }
 
   @Get(':id')
-  async findById(@Param('id') id: number): Promise<User> {
+  async findById(@Param('id') id: number){
     return this.userService.findById(id);
   }
 
   @Post()
-  async create(@Body() user: User): Promise<User> {
-    return this.userService.create(user);
+  @UsePipes(new ValidationPipe())
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() user: User): Promise<User> {
-    return this.userService.update(id, user);
-  }
+
+  // @Put(':id')
+  // async update(@Param('id') id: number, @Body() user: User): Promise<User> {
+  //   return this.userService.update(id, user);
+  // }
 
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<void> {
