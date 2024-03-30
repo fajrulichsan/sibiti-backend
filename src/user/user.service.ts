@@ -3,6 +3,7 @@ import { SupabaseService } from '../supabase/supabase.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { randomInt } from 'crypto';
 
 
 @Injectable()
@@ -52,6 +53,7 @@ export class UserService {
       newUser.username = createUserDto.username;
       newUser.email = createUserDto.email;
       newUser.password = await this.hashPassword(createUserDto.password);
+      newUser.otp_verification = randomInt(100000, 999999);
 
       const data = await this.supabaseService.client
         .from('users')
@@ -84,6 +86,8 @@ export class UserService {
   //   }
   // }
 
+
+  //become delete
   async remove(id: number): Promise<void> {
       const user = await this.findById(id);
 
@@ -110,5 +114,6 @@ export class UserService {
 
     return data ;
   }
+
 }
 

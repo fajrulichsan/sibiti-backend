@@ -4,6 +4,7 @@ export class User {
     email: string;
     password : string
     is_verification : boolean;
+    otp_verification : number;
     created_at : Date;
     updated_at : Date;
 
