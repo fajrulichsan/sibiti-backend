@@ -27,7 +27,6 @@ export class UserService {
   }
 
   async findById(id: number){
-
       const data = await this.supabaseService.client
         .from('users')
         .select('*')
@@ -50,7 +49,6 @@ export class UserService {
       }
 
       const newUser = new User();
-      newUser.username = createUserDto.username;
       newUser.email = createUserDto.email;
       newUser.password = await this.hashPassword(createUserDto.password);
       newUser.otp_verification = randomInt(100000, 999999);
@@ -59,32 +57,26 @@ export class UserService {
         .from('users')
         .insert([newUser]);
       
-      console.log(data);
-
       if (data.status == 201) {
-        throw new HttpException("User created successfully", HttpStatus.CREATED)
+        return newUser;
       }else{
         throw new HttpException(data.statusText, HttpStatus.NOT_FOUND);
       }
   }
 
 
-  // async update(id: number, user: User): Promise<User> {
-  //   try {
-  //     const { data, error } = await this.supabaseService.client
-  //       .from('users')
-  //       .update(user)
-  //       .eq('id', id);
+  async update(id: number, user: User){
+      const data = await this.supabaseService.client
+        .from('users')
+        .update(user)
+        .eq('id', id);
       
-  //     if (error) {
-  //       throw new Error(error.message);
-  //     }
+      if (data.error) {
+        throw new HttpException(data.error, HttpStatus.BAD_REQUEST);
+      }
 
-  //     return data as User;
-  //   } catch (error) {
-  //     throw new Error('Failed to update user: ' + error.message);
-  //   }
-  // }
+      return data;
+  }
 
 
   //become delete
@@ -101,11 +93,7 @@ export class UserService {
       }
     } 
 
-  private async hashPassword(password: string) {
-    return await bcrypt.hash(password, 10);
-  }
-
-  private async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User> {
     const { data } = await this.supabaseService.client
       .from('users')
       .select('*')
@@ -113,6 +101,14 @@ export class UserService {
       .single();  
 
     return data ;
+  }
+
+  async comparePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+  }
+
+  private async hashPassword(password: string) {
+    return await bcrypt.hash(password, 10);
   }
 
 }

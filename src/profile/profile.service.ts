@@ -21,7 +21,7 @@ export class ProfileService {
     if (data.error) {
       return data;
     }else{
-      throw new HttpException("Create profile succesfully", HttpStatus.CREATED)
+      return profileData;
     }
   }
 

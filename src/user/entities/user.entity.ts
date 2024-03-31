@@ -1,6 +1,5 @@
 export class User {
     id: number;
-    username: string;
     email: string;
     password : string
     is_verification : boolean;
@@ -10,7 +9,6 @@ export class User {
 
     constructor() {
         this.id = Number(new Date().getTime());
-        this.username = '';
         this.email = '';
         this.password = '';
         this.is_verification = false;
