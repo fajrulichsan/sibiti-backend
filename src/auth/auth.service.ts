@@ -49,7 +49,7 @@ export class AuthService {
     // Simulate sending email for demo purposes
     await this.sendEmail(foundUser.email, subject, html);
 
-    return { message: "Sign up successful, check your email for OTP" };
+    return { message: "Sign up successful, check your email for OTP" , userId : foundUser.id};
   }
 
   async login(loginUserDto: LoginUserDto) {
