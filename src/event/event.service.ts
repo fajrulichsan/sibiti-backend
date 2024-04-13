@@ -25,6 +25,7 @@ export class EventService {
       const data = await this.supabaseService.client
       .from('events')
       .select('*')
+      .eq("statusData", 1)
       .order('updatedAt', { ascending: false });
 
     return data;
