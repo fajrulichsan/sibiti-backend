@@ -17,9 +17,9 @@ export class SoalController {
     return this.soalService.findAll(eventId, subtestId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string){
-    return this.soalService.findOne(+id);
+  @Get(':eventId/:subtestId/:no')
+  findOne(@Param('eventId') eventId: number, @Param('subtestId') subtestId: number,  @Param('no') no){
+    return this.soalService.findOne(eventId, subtestId, no);
   }
 
   @Patch(':id')

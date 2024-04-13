@@ -28,20 +28,17 @@ export class SoalService {
       .eq('eventId', eventId)
       .eq('subtestId', subtestId);
 
-    // if (error) {
-    //   throw new Error(error.message);
-    // }
-
     return data;
   }
 
-  async findOne(id: number): Promise<Soal> {
-    const { data, error } = await  this.supabaseService.client
-    .from('soals').select('*').eq('id', id).single();
-
-    if (error) {
-      throw new Error(error.message);
-    }
+  async findOne(eventId: number, subtestId: number, no: number){
+    const data = await this.supabaseService.client
+      .from('soal')
+      .select('*')
+      .eq('eventId', eventId)
+      .eq('subtestId', subtestId)
+      .eq('no', no)
+      .single();
 
     return data;
   }

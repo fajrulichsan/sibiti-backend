@@ -2,11 +2,14 @@ export class Soal {
     id: number;
     eventId : number;
     subtestId : number;
-    1 : string;
-    2 : string;
-    3 : string;
-    4 : string;
-    5 : string;
+    no : number;
+    soal : string;
+    a : string;
+    b : string;
+    c : string;
+    d : string;
+    e : string;
+    f : string;
     created_at : Date;
     updated_at : Date;
 

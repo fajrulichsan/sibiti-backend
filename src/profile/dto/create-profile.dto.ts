@@ -18,4 +18,8 @@ export class CreateProfileDto {
   city: string;
 
   phoneNumber: string;
+
+  universitas : string;
+  
+  jurusan : string;
 }
