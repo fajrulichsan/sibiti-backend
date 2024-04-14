@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { ProfileService } from '../profile/profile.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
@@ -70,7 +70,11 @@ export class AuthService {
     }
 
     if (!user.is_verification) {
-      throw new HttpException("User is not verified", HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException({
+        message: 'User is not verified',
+        email: user.email,
+        userId : user.id
+      });
     }
 
     return {
