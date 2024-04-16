@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UsePipes, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UsePipes, HttpException, HttpStatus, Put, Query } from '@nestjs/common';
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { Event } from './entities/event.entity';
@@ -37,7 +37,7 @@ export class EventController {
     return this.eventService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   async update(@Param('id') id: number, @Body() event: Event) {
     const updateEvent = await this.eventService.update(id, event);
 
@@ -51,5 +51,10 @@ export class EventController {
   @Delete(':id')
   async remove(@Param('id') id: number) {
     return this.eventService.remove(id);
+  }
+
+  @Get("search/:name")
+  async getEventByName(@Param('name') name: string){    
+    return await this.eventService.getEventByName(name);
   }
 }

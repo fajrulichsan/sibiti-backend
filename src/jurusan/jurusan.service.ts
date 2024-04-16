@@ -15,8 +15,6 @@ export class JurusanService {
     const data = await this.supabaseService.client
       .from('jurusan')
       .insert([jurusanData]);
-
-      console.log(data);
       
     return data;
   }
