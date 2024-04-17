@@ -5,7 +5,7 @@ import * as cors from 'cors';
 
 async function bootstrap() {
   dotenv.config();
-  const app = await NestFactory.create(AppModule , {cors : true});
+  const app = await NestFactory.create(AppModule);
 
   app.use(cors({
     origin: 'https://sibiti-frontend.netlify.app', // Ganti dengan URL Frontend Anda
