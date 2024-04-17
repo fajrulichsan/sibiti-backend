@@ -5,7 +5,7 @@ import * as cors from 'cors';
 
 async function bootstrap() {
   dotenv.config();
-  const app = await NestFactory.create(AppModule, {cors : true});
+  const app = await NestFactory.create(AppModule, {cors : false});
 
   await app.listen(3000);
 }
