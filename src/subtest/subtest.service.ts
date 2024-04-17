@@ -23,6 +23,7 @@ export class SubtestService {
       .from('subtest')
       .select('*')
       .eq("statusData", 1)
+      .order('updatedAt', { ascending: false });
 
     return data;
   }
@@ -34,10 +35,6 @@ export class SubtestService {
       .eq('id', id)
       .eq("statusData", 1)
       .single();
-
-    if (data.error.details = '"The result contains 0 rows') {
-      throw new HttpException("Subtest Not Found", HttpStatus.BAD_REQUEST)
-    }
 
     return data;
   }
@@ -53,6 +50,7 @@ export class SubtestService {
         opsi: updateSubtestDto.opsi,
         waktu: updateSubtestDto.waktu,
         status: updateSubtestDto.status,
+        updatedAt : new Date()
       })
       .eq('id', id);
 
@@ -74,6 +72,7 @@ export class SubtestService {
       .select('*')
       .eq('eventId', eventId)
       .eq("statusData", 1)
+      .order('updatedAt', { ascending: false });
 
     return data;
   }

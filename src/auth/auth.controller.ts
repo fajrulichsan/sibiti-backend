@@ -29,4 +29,9 @@ export default class AuthController {
   async verifyAccount(@Body() verifyAccountDto: VerifyAccountDto) {
     return await this.authService.verifyAccount(verifyAccountDto);
   }
+
+  @Get('check-verification/:id')
+  async checkVerification(@Param('id') id: number) {
+      return await this.authService.checkVerificationStatus(id);
+  }
 }

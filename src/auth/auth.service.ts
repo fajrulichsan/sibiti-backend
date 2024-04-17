@@ -110,6 +110,23 @@ export class AuthService {
     }
   }
 
+  async checkVerificationStatus(userId: number) {
+    const user = await this.userService.findById(userId);
+  
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+  
+    const isVerified = user.data.is_verification;
+  
+    if (isVerified) {
+      return { message: "User verified", verifiedStatus: true };
+    } else {
+      return { message: "User not verified", verifiedStatus: false };
+    }
+  }
+  
+
 
     
   public async sendEmail(to: string, subject: string, html: string): Promise<void> {
