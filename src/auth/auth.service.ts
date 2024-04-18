@@ -12,7 +12,6 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly profileService: ProfileService,
-    // private readonly emailService: EmailService,
   ) {}
 
   async signUp(createUserDto: CreateUserDto, createProfileDto: CreateProfileDto) {
@@ -77,11 +76,14 @@ export class AuthService {
       });
     }
 
+    const userRole = await this.getUserRole(user.id)
+
     return {
       message : "Login successfully", 
       data : {
         userId : user.id,
         email : user.email,
+        role : userRole.role
     }}
 
   }
@@ -125,9 +127,12 @@ export class AuthService {
       return { message: "User not verified", verifiedStatus: false };
     }
   }
+
+  async getUserRole(userId: number){
+      const user = await this.profileService.findByUserId(userId);
+      return user.data;
+  }
   
-
-
     
   public async sendEmail(to: string, subject: string, html: string): Promise<void> {
     try {
@@ -145,6 +150,7 @@ export class AuthService {
       throw error;
     }
   }
+
 
   private transporter = nodemailer.createTransport({
     service: 'gmail',

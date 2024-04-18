@@ -8,6 +8,7 @@ export class Profile {
     province: string;
     city: string;
     phoneNumber: string;
+    role : string;
     created_at : Date;
     updated_at : Date;
 

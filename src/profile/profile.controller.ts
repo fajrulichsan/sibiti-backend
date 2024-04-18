@@ -18,8 +18,8 @@ export class ProfileController {
   }
 
   @Get(':userId')
-  findOne(@Param('userId') userId: string) {
-    return this.profileService.findOne(+userId);
+  findByUserId(@Param('userId') userId: string) {
+    return this.profileService.findByUserId(+userId);
   }
 
   @Patch(':userId')

@@ -12,7 +12,8 @@ export class ProfileService {
 
   async create(createProfileDto: CreateProfileDto){
     const id = Number(new Date().getTime());
-    const profileData = { ...createProfileDto, id };
+    const role = "Member"
+    const profileData = { ...createProfileDto, id, role };
 
     const data = await this.supabaseService.client
       .from('profiles')
@@ -37,11 +38,12 @@ export class ProfileService {
     return data;
   }
 
-  async findOne(userId: number) {
+  async findByUserId(userId: number) {
     const data = await this.supabaseService.client
       .from('profiles')
       .select('*')
       .eq('userId', userId)
+      .single()
       
       if (data.data.length == 0) {
         throw new HttpException("Profile not found", HttpStatus.BAD_REQUEST);
@@ -51,7 +53,7 @@ export class ProfileService {
   }
 
   async update(userId: number, updateProfileDto: UpdateProfileDto) {    
-    const user =  await this.findOne(userId)
+    const user =  await this.findByUserId(userId)
     const data = await this.supabaseService.client
       .from('profiles')
       .update(updateProfileDto)
@@ -74,4 +76,5 @@ export class ProfileService {
       throw new Error(error.message);
     }
   }
+
 }

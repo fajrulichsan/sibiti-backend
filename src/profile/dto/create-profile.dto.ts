@@ -22,4 +22,6 @@ export class CreateProfileDto {
   universitas : string;
   
   jurusan : string;
+
+  role : string;
 }

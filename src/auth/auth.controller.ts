@@ -19,7 +19,7 @@ export default class AuthController {
   }
 
   @Post('/login')
-  @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
+  @UsePipes(new ValidationPipe())
   async login(@Body() loginUserDto: LoginUserDto){
     return await this.authService.login(loginUserDto);
   }
