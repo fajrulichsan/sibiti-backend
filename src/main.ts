@@ -6,9 +6,10 @@ async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: 'https://sibiti-frontend.vercel.app', // Replace with allowed origin(s)
+      origin: '*', // Replace with allowed origin(s)
       allowedHeaders: ['Content-Type', 'Authorization'], // Allowed request headers
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+      credentials : true
     },
   });
 
