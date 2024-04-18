@@ -4,11 +4,10 @@ import * as dotenv from 'dotenv';
 
 async function bootstrap() {
   dotenv.config();
-  const app = await NestFactory.create(AppModule, {cors : true});
+  const app = await NestFactory.create(AppModule);
+
   app.enableCors({
-    origin: [
-      'https://sibiti-frontend.vercel.app'
-    ],
+    origin: true,
     methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH'],
   });
   await app.listen(3000);
