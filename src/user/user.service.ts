@@ -78,7 +78,6 @@ export class UserService {
       return data;
   }
 
-
   //become delete
   async remove(id: number): Promise<void> {
       const user = await this.findById(id);
@@ -91,7 +90,7 @@ export class UserService {
       if (data.error == null ) {
         throw new HttpException("User delete successfully", HttpStatus.OK)
       }
-    } 
+  }
 
   async findByEmail(email: string): Promise<User> {
     const { data } = await this.supabaseService.client
@@ -101,6 +100,16 @@ export class UserService {
       .single();  
 
     return data ;
+  }
+
+  async findByEmailUserVerified(email: string){
+    const data  = await this.supabaseService.client
+      .from('users')
+      .select('*')
+      .ilike('email', `%${email}%`)
+      .eq("is_verification", true)
+
+    return data;
   }
 
   async comparePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {

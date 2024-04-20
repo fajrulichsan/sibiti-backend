@@ -9,9 +9,10 @@ import { SoalModule } from './soal/soal.module';
 import { UniversitasModule } from './universitas/universitas.module';
 import { JurusanModule } from './jurusan/jurusan.module';
 import { SubtestModule } from './subtest/subtest.module';
+import { UserRoleModule } from './user-role/user-role.module';
 
 @Module({
-  imports: [ UserModule, ProfileModule, AuthModule, EventModule, SoalModule, UniversitasModule, JurusanModule, SubtestModule],
+  imports: [ UserModule, ProfileModule, AuthModule, EventModule, SoalModule, UniversitasModule, JurusanModule, SubtestModule, UserRoleModule],
   controllers: [AppController],
   providers: [AppService],
 })
